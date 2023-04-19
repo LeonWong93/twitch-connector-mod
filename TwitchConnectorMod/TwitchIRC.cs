@@ -9,8 +9,8 @@ namespace TwitchConnectorMod
         public string oauth;
         public string nickName;
         public string channelName;
-        private string server = "irc.twitch.tv";
-        private int port = 6667;
+        public string server;
+        public int port;
         public bool logRawMessages = false;
         public delegate void MessageReceivedEventHandler(object sender, ParsedTwitchMessage e);
         public event MessageReceivedEventHandler MessageReceived;
@@ -83,7 +83,7 @@ namespace TwitchConnectorMod
                 if (buffer.Split(' ')[1] == "001")
                 {
                     SendCommand("JOIN #" + channelName);
-                    Melon<TwitchConnectorMod>.Logger.Msg("Connected to Twitch.");
+                    Melon<TwitchConnectorMod>.Logger.Msg("Connected to Twitch Channel (" + channelName + ")");
                 }
             }
         }

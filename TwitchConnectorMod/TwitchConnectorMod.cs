@@ -15,6 +15,8 @@ namespace TwitchConnectorMod
         private MelonPreferences_Entry<string> oauthToken;
         private MelonPreferences_Entry<string> channel;
         private MelonPreferences_Entry<string> username;
+        private MelonPreferences_Entry<string> server;
+        private MelonPreferences_Entry<int> port;
         private MelonPreferences_Entry<bool> logTwitchMessages;
         private MelonPreferences_Entry<bool> logRawTwitchMessages;
 
@@ -31,6 +33,12 @@ namespace TwitchConnectorMod
             // FIXME: Consider supporting multiple channels? 
             channel = twitchConnectorPrefs.CreateEntry<string>("Channel", "");
             channel.Comment = "The twitch channel to join - typically the same as your username";
+
+            server = twitchConnectorPrefs.CreateEntry<string>("Server", "irc.twitch.tv");
+            server.Comment = "Default irc chat server to connect, change it only if you know what you are doing";
+
+            port = twitchConnectorPrefs.CreateEntry<int>("Port", 6667);
+            port.Comment = "Default port are 6667, change to 80 if you not able to connect twitch chat";
 
             logTwitchMessages = twitchConnectorPrefs.CreateEntry<bool>("LogTwitchMessages", false);
             logTwitchMessages.Comment = "If set to true, all received twitch messages are written to the console log.";
@@ -56,10 +64,24 @@ namespace TwitchConnectorMod
                 channel.Value = username.Value;
             }
 
+            if (server.Value == "")
+            {
+                LoggerInstance.Msg("Twitch channel not set, defaulting to twitch username.");
+                server.Value = "irc.twitch.tv";
+            }
+
+            if (port.Value == 0)
+            {
+                LoggerInstance.Msg("Custom Port is not defined, default port 6667 will be used.");
+                port.Value = 6667;
+            }
+
             Melon<TwitchConnectorMod>.Logger.Msg("Starting Connection");
             IRC.oauth = oauthToken.Value;
             IRC.channelName = channel.Value;
             IRC.nickName = username.Value;
+            IRC.server = server.Value;
+            IRC.port = port.Value;
 
             AddChatMsgReceivedEventHandler(OnChatMsgReceived);
             if (logRawTwitchMessages.Value == true)
