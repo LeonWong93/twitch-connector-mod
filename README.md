@@ -4,7 +4,11 @@ This mod connects to twitch chat and exposes two-way twitch chat communication t
 
 ## Prerequisites
 
-This requires MelonLoader 0.5.3 or later be installed on your Audica installation.  Check out https://melonwiki.xyz for installation instructions. 
+This requires MelonLoader 0.5.5* (or maybe later version support too ?) be installed on your Audica installation.
+
+Check out https://melonwiki.xyz for installation instructions. 
+
+**Latest version v0.6.1 break my mod, 0.5.3 doesn't seem available anymore, 0.5.5 is what i currently using and seem fine*
 
 ## Installation
 
@@ -17,6 +21,14 @@ This requires MelonLoader 0.5.3 or later be installed on your Audica installatio
    Username = "your_twitch_username" # Replace "your_twitch_username" with your twitch username.
    OAuthToken = "oauth:xxxxx" # Get your twitch oauth token by visiting https://twitchapps.com/tmi/ and paste the token you receive into here.
    Channel = "your_twitch_username" # The twitch channel to join - typically this is the same as your username
+   
+   ```
+
+   *Optionally, which my main purpose on fork this Mod and modify it, you can add this line too for change the Port used to connect Twitch Chat server, which solve my issue as port 6667 is somehow blocked by my ISP.*
+
+   ```
+   [TwitchConnector]
+   Port = 80 # Default port are 6667, change to 80 if you not able to connect twitch chat
    
    ```
 
