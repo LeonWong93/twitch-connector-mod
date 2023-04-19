@@ -9,8 +9,8 @@ namespace TwitchConnectorMod
         public string oauth;
         public string nickName;
         public string channelName;
-        private string server = "irc.twitch.tv";
-        private int port = 6667;
+        public string server;
+        public int port;
         public bool logRawMessages = false;
         public delegate void MessageReceivedEventHandler(object sender, ParsedTwitchMessage e);
         public event MessageReceivedEventHandler MessageReceived;
