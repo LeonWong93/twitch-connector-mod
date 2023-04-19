@@ -83,7 +83,7 @@ namespace TwitchConnectorMod
                 if (buffer.Split(' ')[1] == "001")
                 {
                     SendCommand("JOIN #" + channelName);
-                    Melon<TwitchConnectorMod>.Logger.Msg("Connected to Twitch.");
+                    Melon<TwitchConnectorMod>.Logger.Msg("Connected to Twitch Channel (" + channelName + ")");
                 }
             }
         }
